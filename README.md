@@ -50,6 +50,8 @@ consistently with other projects, including README.md and .gitignore.
 Checkout this skeleton to start.
 
 Create a new Kotlin project using Java... Kotlin/JVM.
+There are many Kotlin alternatives, including under Kotlin and Gradle. 
+Use the Kotlin option under Java instead.
 Target the directory just imported from github.
 Override the module defaults to create *exercises*
 as the default module, placing it as a subdirectory.
