@@ -36,8 +36,7 @@ Source and test directories should already be tagged as such. Confirm or fix:
     - The *@Test* directive should be red (wait for the compiler to catch up)
     - Choose the correction option that supports Junit5 (not 4)
 
-Confirm that everything builds correctly 
-(and necessary libraries exist).
+Confirm that everything builds correctly (and necessary libraries exist).
 There should be errors in RectangleTest. 
 Fixing them is the first exercise!
 
