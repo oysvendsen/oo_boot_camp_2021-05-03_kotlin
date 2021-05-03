@@ -12,6 +12,6 @@ import rectangle.Rectangle
 
 private class RectangleTest {
     @Test fun area() {
-        assertEquals(24.0, Rectangle(4, 6).area);
+        assertEquals(24.0, Rectangle(4.0, 6.0).area());
     }
 }
