@@ -6,5 +6,20 @@
 
 package rectangle
 
-class Rectangle {
+// Understands a four-sided polygon with sides at right angles
+class Rectangle(length: Number, width: Number) {
+    private val length = length.toDouble()
+    private val width = width.toDouble()
+
+    init {
+        require(length.toDouble() > 0.0 && width.toDouble() > 0.0)
+        { "Dimensions must be positive numbers" }
+    }
+
+    fun area() = length * width
+    val area get() = area()
+
+    fun perimeter() = 2 * (length + width)
+    val perimeter get() = perimeter()
+
 }
