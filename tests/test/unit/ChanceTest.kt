@@ -43,5 +43,14 @@ internal class ChanceTest {
         assertEquals(likely, !!likely)
         assertEquals(impossible, certain.not())
         assertEquals(equallyLikely, equallyLikely.not())
+        assertEquals(Chance(0.3), !!Chance(0.3))
+    }
+
+    @Test fun and() {
+        assertEquals(unlikely, equallyLikely and equallyLikely)
+        assertEquals(Chance(0.1875), likely and unlikely)
+        assertEquals(likely and unlikely, unlikely and likely)
+        assertEquals(impossible, likely and impossible)
+        assertEquals(likely, certain and likely)
     }
 }
