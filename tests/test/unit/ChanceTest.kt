@@ -12,10 +12,26 @@ import probability.Chance
 
 internal class ChanceTest {
 
+    companion object {
+        private val certain = Chance(1)
+        private val likely = Chance(0.75)
+        private val equallyLikely = Chance(0.5)
+        private val unlikely = Chance(0.25)
+        private val impossible = Chance(0)
+    }
+
     @Test fun equality() {
-        assertEquals(Chance(0.75), Chance(0.75))
-        assertNotEquals(Chance(0.75), Chance(0.25))
-        assertNotEquals(Chance(0.75), Any())
-        assertNotEquals(Chance(0.75), null)
+        assertEquals(likely, Chance(0.75))
+        assertNotEquals(likely, Chance(0.25))
+        assertNotEquals(likely, Any())
+        assertNotEquals(likely, null)
+    }
+
+    @Test fun not() {
+        assertEquals(unlikely, likely.not())
+        assertEquals(likely, likely.not().not())
+        assertEquals(likely, !!likely)
+        assertEquals(impossible, certain.not())
+        assertEquals(equallyLikely, equallyLikely.not())
     }
 }
