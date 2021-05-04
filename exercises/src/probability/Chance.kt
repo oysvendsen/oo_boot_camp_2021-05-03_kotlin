@@ -17,6 +17,10 @@ class Chance(likelihoodAsFraction: Number) {
     }
     private val fraction = likelihoodAsFraction.toDouble()
 
+    init {
+        require(fraction in (0.0..1.0)) { "Fraction must be between 0 and 1, inclusive" }
+    }
+
     override fun equals(other: Any?) =
         this === other || other is Chance && this.equals(other)
 

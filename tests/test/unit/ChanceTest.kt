@@ -53,4 +53,9 @@ internal class ChanceTest {
         assertEquals(impossible, likely and impossible)
         assertEquals(likely, certain and likely)
     }
+
+    @Test internal fun `invalid fractions`() {
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { Chance(-0.01) }
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { Chance(1.01) }
+    }
 }
