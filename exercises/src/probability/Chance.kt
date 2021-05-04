@@ -14,6 +14,9 @@ class Chance(likelihoodAsFraction: Number) {
     companion object {
         private const val CERTAIN_FRACTION = 1.0
         private const val DELTA = 1e-10
+
+        val Number.chance get() = Chance(this.toDouble())
+        val Number.percent get() = (this.toDouble()/ 100).chance
     }
     private val fraction = likelihoodAsFraction.toDouble()
 

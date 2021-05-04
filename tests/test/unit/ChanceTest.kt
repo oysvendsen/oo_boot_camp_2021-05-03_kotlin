@@ -9,6 +9,8 @@ package unit
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import probability.Chance
+import probability.Chance.Companion.chance
+import probability.Chance.Companion.percent
 
 internal class ChanceTest {
 
@@ -44,6 +46,7 @@ internal class ChanceTest {
         assertEquals(impossible, certain.not())
         assertEquals(equallyLikely, equallyLikely.not())
         assertEquals(Chance(0.3), !!Chance(0.3))
+        assertEquals(0.3.chance, !!30.percent)
     }
 
     @Test fun and() {
