@@ -9,15 +9,15 @@ package quantity
 import kotlin.math.absoluteValue
 
 // Understands a specific measurement
-open class Quantity internal constructor(amount: Number, internal val unit: Unit) {
-    internal val amount = amount.toDouble()
+open class Quantity internal constructor(amount: Number, private val unit: Unit) {
+    private val amount = amount.toDouble()
 
     override fun equals(other: Any?) = this === other || other is Quantity && this.equals(other)
 
     private fun equals(other: Quantity) =
             (this.amount - convertedAmount(other)).absoluteValue < Unit.EPSILON
 
-    internal fun convertedAmount(other: Quantity) = this.unit.convertedAmount(other.amount, other.unit)
+    private fun convertedAmount(other: Quantity) = this.unit.convertedAmount(other.amount, other.unit)
 
     override fun hashCode() = unit.hashCode(amount)
 
