@@ -28,21 +28,46 @@ class Unit {
         val Number.pints get() = Quantity(this, PINT)
         val Number.quarts get() = Quantity(this, QUART)
         val Number.gallons get() = Quantity(this, GALLON)
+
+        private val INCH = Unit()
+        private val FOOT = Unit(12, INCH)
+        private val YARD = Unit(3, FOOT)
+        private val FATHOM = Unit(6, FOOT)
+        private val CHAIN = Unit(22, YARD)
+        private val FURLONG = Unit(10, CHAIN)
+        private val MILE = Unit(8, FURLONG)
+        private val LEAGUE = Unit(3, MILE)
+
+        val Number.inches get() = Quantity(this, INCH)
+        val Number.feet get() = Quantity(this, FOOT)
+        val Number.yards get() = Quantity(this, YARD)
+        val Number.fathoms get() = Quantity(this, FATHOM)
+        val Number.chains get() = Quantity(this, CHAIN)
+        val Number.furlongs get() = Quantity(this, FURLONG)
+        val Number.miles get() = Quantity(this, MILE)
+        val Number.leagues get() = Quantity(this, LEAGUE)
     }
 
+    private val baseUnit: Unit
     private val baseUnitRatio: Double
 
     private constructor() {
+        baseUnit = this
         baseUnitRatio = 1.0
     }
 
     private constructor(relativeRatio: Number, relativeUnit: Unit) {
+        baseUnit = relativeUnit.baseUnit
         baseUnitRatio = relativeRatio.toDouble() * relativeUnit.baseUnitRatio
     }
 
     internal fun convertedAmount(otherAmount: Double, other: Unit) =
-        otherAmount * other.baseUnitRatio / this.baseUnitRatio
+        (otherAmount * other.baseUnitRatio / this.baseUnitRatio).also {
+        require(this.isCompatible(other)) { "Incompatible units for arithmetic" }
+    }
 
     internal fun hashCode(amount: Double) =
         ((amount * baseUnitRatio) / EPSILON).roundToLong().hashCode()
+
+    internal fun isCompatible(other: Unit) = this.baseUnit == other.baseUnit
 }
