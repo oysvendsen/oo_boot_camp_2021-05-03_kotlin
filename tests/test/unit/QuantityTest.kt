@@ -6,7 +6,6 @@
 
 package unit
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import quantity.Unit.Companion.chains
@@ -25,12 +24,13 @@ import quantity.Unit.Companion.tablespoons
 import quantity.Unit.Companion.teaspoons
 import quantity.Unit.Companion.yards
 
+@Suppress("WrapUnaryOperator")
 internal class QuantityTest {
 
     @Test fun `equality for like units`() {
         assertEquals(8.tablespoons, 8.tablespoons)
         assertNotEquals(8.tablespoons, 6.tablespoons)
-        Assertions.assertNotEquals(8.tablespoons, Any())
+        assertNotEquals(8.tablespoons, Any())
         assertNotEquals(8.tablespoons, null)
     }
 
@@ -46,7 +46,7 @@ internal class QuantityTest {
     @Test fun `Quantity in hash set`() {
         assert(hashSetOf(8.tablespoons).contains(8.tablespoons))
         assert(hashSetOf(8.tablespoons).contains(0.5.cups))
-        Assertions.assertEquals(1, hashSetOf(8.tablespoons, 8.tablespoons).size)
+        assertEquals(1, hashSetOf(8.tablespoons, 8.tablespoons).size)
     }
 
     @Test fun hash() {
