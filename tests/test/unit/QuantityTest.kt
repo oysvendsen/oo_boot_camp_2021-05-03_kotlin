@@ -8,8 +8,11 @@ package unit
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import quantity.Quantity
+import quantity.Unit.Companion.celsius
 import quantity.Unit.Companion.chains
 import quantity.Unit.Companion.cups
+import quantity.Unit.Companion.fahrenheit
 import quantity.Unit.Companion.fathoms
 import quantity.Unit.Companion.feet
 import quantity.Unit.Companion.furlongs
@@ -52,6 +55,7 @@ internal class QuantityTest {
     @Test fun hash() {
         assertEquals(8.tablespoons.hashCode(), 8.tablespoons.hashCode())
         assertEquals(8.tablespoons.hashCode(), 0.5.cups.hashCode())
+        assertEquals(50.fahrenheit.hashCode(), 10.celsius.hashCode())
     }
 
     @Test fun arithmetic() {
@@ -68,5 +72,17 @@ internal class QuantityTest {
 
     @Test fun `incompatible units`() {
         org.junit.jupiter.api.assertThrows<IllegalArgumentException> { 3.yards - 4.tablespoons }
+    }
+
+    @Test internal fun temperatures() {
+        assertBidirectionalEquality(0.celsius, 32.fahrenheit)
+        assertBidirectionalEquality(10.celsius, 50.fahrenheit)
+        assertBidirectionalEquality(100.celsius, 212.fahrenheit)
+        assertBidirectionalEquality((-40).celsius, (-40).fahrenheit)
+    }
+
+    private fun assertBidirectionalEquality(left: Quantity, right: Quantity) {
+        assertEquals(left, right)
+        assertEquals(right, left)
     }
 }
