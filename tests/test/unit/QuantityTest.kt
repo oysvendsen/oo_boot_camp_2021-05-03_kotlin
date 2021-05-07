@@ -8,7 +8,8 @@ package unit
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import quantity.Quantity
+import quantity.IntervalQuantity
+import quantity.RatioQuantity
 import quantity.Unit.Companion.celsius
 import quantity.Unit.Companion.chains
 import quantity.Unit.Companion.cups
@@ -81,7 +82,13 @@ internal class QuantityTest {
         assertBidirectionalEquality((-40).celsius, (-40).fahrenheit)
     }
 
-    private fun assertBidirectionalEquality(left: Quantity, right: Quantity) {
+    @Test
+    internal fun temperatureArithmetic() {
+        // The following should not compile!
+//        10.celsius - 32.fahrenheit
+    }
+
+    private fun assertBidirectionalEquality(left: IntervalQuantity, right: IntervalQuantity) {
         assertEquals(left, right)
         assertEquals(right, left)
     }
