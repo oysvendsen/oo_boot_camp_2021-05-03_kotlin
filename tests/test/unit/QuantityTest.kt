@@ -9,7 +9,6 @@ package unit
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import quantity.IntervalQuantity
-import quantity.RatioQuantity
 import quantity.Unit.Companion.celsius
 import quantity.Unit.Companion.chains
 import quantity.Unit.Companion.cups
