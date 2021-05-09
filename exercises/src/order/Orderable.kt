@@ -12,9 +12,7 @@ interface Orderable<T> {
 
 fun <S: Orderable<S>> List<S>.bestOrNull(): S? {
     if (this.isEmpty()) return null
-    var champion = this.first()
-    for (challenger in this) {
-        if (challenger.isBetterThan(champion)) champion = challenger
+    return this.reduce { champion, challenger ->
+        if (challenger.isBetterThan(champion)) challenger else champion
     }
-    return champion
 }
