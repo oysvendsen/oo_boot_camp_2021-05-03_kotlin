@@ -28,4 +28,9 @@ internal class OrderableTest {
         assertNull(emptyList<Rectangle>().bestOrNull())
     }
 
+    @Test internal fun `least likely chance`() {
+        assertEquals(Chance(0), listOf(Chance(0.1), Chance(0.7), Chance(0), Chance(0.9)).bestOrNull())
+        assertNull(emptyList<Chance>().bestOrNull())
+    }
+
 }
