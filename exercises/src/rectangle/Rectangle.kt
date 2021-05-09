@@ -16,6 +16,10 @@ class Rectangle(length: Number, width: Number) {
         { "Dimensions must be positive numbers" }
     }
 
+    companion object {
+        fun square(side: Number) = Rectangle(side, side)
+    }
+
     fun area() = length * width
     val area get() = area()
 
