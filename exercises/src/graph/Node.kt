@@ -11,7 +11,7 @@ class Node {
     companion object {
         private const val UNREACHABLE = Double.POSITIVE_INFINITY
     }
-    private val neighbors = mutableListOf<Node>()
+    private val links = mutableListOf<Link>()
 
     infix fun canReach(destination: Node) = this.hopCount(destination, noVisitedNodes) != UNREACHABLE
 
@@ -19,12 +19,12 @@ class Node {
         require (it != UNREACHABLE) { "Destination is not reachable" }
     }.toInt()
 
-    private fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
+    internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
         var champion = UNREACHABLE
-        for (neighbor in neighbors) {
-            val challenger = neighbor.hopCount(destination, visitedNodes + this) + 1
+        for (link in links) {
+            val challenger = link.hopCount(destination, visitedNodes + this)
             if (challenger < champion) champion = challenger
         }
         return champion
@@ -32,5 +32,5 @@ class Node {
 
     private val noVisitedNodes = emptyList<Node>()
 
-    infix fun to(neighbor: Node) = neighbor.also { neighbors.add(neighbor) }
+    infix fun to(neighbor: Node) = neighbor.also { links.add(Link(neighbor)) }
 }
