@@ -13,14 +13,7 @@ class Node {
     }
     private val neighbors = mutableListOf<Node>()
 
-    infix fun canReach(destination: Node) = this.canReach(destination, noVisitedNodes)
-
-    private fun canReach(destination: Node, visitedNodes: MutableList<Node>): Boolean {
-        if (this == destination) return true
-        if (this in visitedNodes) return false
-        visitedNodes.add(this)
-        return neighbors.any { neighbor -> neighbor.canReach(destination, visitedNodes) }
-    }
+    infix fun canReach(destination: Node) = this.hopCount(destination, noVisitedNodes) != UNREACHABLE
 
     infix fun hopCount(destination: Node) = this.hopCount(destination, noVisitedNodes).also {
         require (it != UNREACHABLE) { "Destination is not reachable" }
