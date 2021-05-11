@@ -7,7 +7,7 @@
 package graph
 
 // Understands a connection from one Node to another
-class Link(private val target: Node) {
+class Link internal constructor(private val target: Node, private val cost: Double) {
 
     internal fun hopCount(destination: Node, visitedNodes: List<Node>) =
         target.hopCount(destination, visitedNodes) + 1

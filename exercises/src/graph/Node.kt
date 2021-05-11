@@ -32,5 +32,11 @@ class Node {
 
     private val noVisitedNodes = emptyList<Node>()
 
-    infix fun to(neighbor: Node) = neighbor.also { links.add(Link(neighbor)) }
+    infix fun cost(amount: Number) = LinkBuilder(amount.toDouble(), links)
+
+    class LinkBuilder internal constructor(private val cost: Double, private val links: MutableList<Link>) {
+        infix fun to(neighbor: Node) = neighbor.also {
+            links.add(Link(neighbor, cost))
+        }
+    }
 }
