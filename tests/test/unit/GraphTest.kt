@@ -50,4 +50,15 @@ internal class GraphTest {
         org.junit.jupiter.api.assertThrows<IllegalArgumentException> { a hopCount b }
         org.junit.jupiter.api.assertThrows<IllegalArgumentException> { b hopCount g }
     }
+
+    @Test fun cost() {
+        assertEquals(0.0, b cost b)
+        assertEquals(5.0, b cost a)
+        assertEquals(4.0, b cost f)
+        assertEquals(7.0, b cost d)
+        assertEquals(10.0, c cost f)
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { g cost b }
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { a cost b }
+        org.junit.jupiter.api.assertThrows<IllegalArgumentException> { b cost g }
+    }
 }

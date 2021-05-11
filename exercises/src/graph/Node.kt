@@ -30,6 +30,21 @@ class Node {
         return champion
     }
 
+    infix fun cost(destination: Node) = this.cost(destination, noVisitedNodes).also {
+        require (it != UNREACHABLE) { "Destination is not reachable" }
+    }.toInt()
+
+    internal fun cost(destination: Node, visitedNodes: List<Node>): Double {
+        if (this == destination) return 0.0
+        if (this in visitedNodes) return UNREACHABLE
+        var champion = UNREACHABLE
+        for (link in links) {
+            val challenger = link.cost(destination, visitedNodes + this)
+            if (challenger < champion) champion = challenger
+        }
+        return champion
+    }
+
     private val noVisitedNodes = emptyList<Node>()
 
     infix fun cost(amount: Number) = LinkBuilder(amount.toDouble(), links)
