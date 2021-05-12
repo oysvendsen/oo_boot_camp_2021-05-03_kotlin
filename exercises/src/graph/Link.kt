@@ -13,10 +13,6 @@ internal class Link internal constructor(private val target: Node, private val c
         internal val FEWEST_HOPS = { _: Double -> 1.0 }
     }
 
-    internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
-        return target.hopCount(destination, visitedNodes) + 1
-    }
-
     internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
         return target.cost(destination, visitedNodes, strategy) + strategy(cost)
     }

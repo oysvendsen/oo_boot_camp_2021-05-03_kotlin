@@ -16,36 +16,20 @@ class Node {
     }
     private val links = mutableListOf<Link>()
 
-    infix fun canReach(destination: Node) = this.hopCount(destination, noVisitedNodes) != UNREACHABLE
+    infix fun canReach(destination: Node) = this.cost(destination, noVisitedNodes, FEWEST_HOPS) != UNREACHABLE
 
-    infix fun hopCount(destination: Node) = this.cost(destination, noVisitedNodes, FEWEST_HOPS).also {
-        require (it != UNREACHABLE) { "Destination is not reachable" }
-    }.toInt()
+    infix fun hopCount(destination: Node) = this.cost(destination, FEWEST_HOPS).toInt()
 
-    internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
-        if (this == destination) return 0.0
-        if (this in visitedNodes) return UNREACHABLE
-        var champion = UNREACHABLE
-        for (link in links) {
-            val challenger = link.hopCount(destination, visitedNodes + this)
-            if (challenger < champion) champion = challenger
-        }
-        return champion
-    }
+    infix fun cost(destination: Node) = this.cost(destination, LEAST_COST)
 
-    infix fun cost(destination: Node) = this.cost(destination, noVisitedNodes, LEAST_COST).also {
+    private fun cost(destination: Node, strategy: CostStrategy) = this.cost(destination, noVisitedNodes, strategy).also {
         require (it != UNREACHABLE) { "Destination is not reachable" }
     }
 
     internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
-        var champion = UNREACHABLE
-        for (link in links) {
-            val challenger = link.cost(destination, visitedNodes + this, strategy)
-            if (challenger < champion) champion = challenger
-        }
-        return champion
+        return links.minOfOrNull { it.cost(destination, visitedNodes + this, strategy) } ?: UNREACHABLE
     }
 
     private val noVisitedNodes = emptyList<Node>()
