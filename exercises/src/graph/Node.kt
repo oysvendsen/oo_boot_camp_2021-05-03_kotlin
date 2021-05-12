@@ -6,6 +6,8 @@
 
 package graph
 
+import graph.Link.Companion.LEAST_COST
+
 // Understands its neighbors
 class Node {
     companion object {
@@ -30,16 +32,16 @@ class Node {
         return champion
     }
 
-    infix fun cost(destination: Node) = this.cost(destination, noVisitedNodes).also {
+    infix fun cost(destination: Node) = this.cost(destination, noVisitedNodes, LEAST_COST).also {
         require (it != UNREACHABLE) { "Destination is not reachable" }
     }
 
-    internal fun cost(destination: Node, visitedNodes: List<Node>): Double {
+    internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
         if (this == destination) return 0.0
         if (this in visitedNodes) return UNREACHABLE
         var champion = UNREACHABLE
         for (link in links) {
-            val challenger = link.cost(destination, visitedNodes + this)
+            val challenger = link.cost(destination, visitedNodes + this, strategy)
             if (challenger < champion) champion = challenger
         }
         return champion

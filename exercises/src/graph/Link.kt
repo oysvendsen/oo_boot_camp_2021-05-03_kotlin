@@ -7,13 +7,18 @@
 package graph
 
 // Understand a connection from one Node to another
-internal class Link(private val target: Node, private val cost: Double) {
+internal class Link internal constructor(private val target: Node, private val cost: Double) {
+    companion object {
+        internal val LEAST_COST = { cost: Double -> cost }
+    }
 
     internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {
         return target.hopCount(destination, visitedNodes) + 1
     }
 
-    internal fun cost(destination: Node, visitedNodes: List<Node>): Double {
-        return target.cost(destination, visitedNodes) + cost
+    internal fun cost(destination: Node, visitedNodes: List<Node>, strategy: CostStrategy): Double {
+        return target.cost(destination, visitedNodes, strategy) + strategy(cost)
     }
 }
+
+internal typealias CostStrategy = (Double) -> Double
