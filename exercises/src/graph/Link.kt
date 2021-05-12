@@ -10,6 +10,7 @@ package graph
 internal class Link internal constructor(private val target: Node, private val cost: Double) {
     companion object {
         internal val LEAST_COST = { cost: Double -> cost }
+        internal val FEWEST_HOPS = { _: Double -> 1.0 }
     }
 
     internal fun hopCount(destination: Node, visitedNodes: List<Node>): Double {

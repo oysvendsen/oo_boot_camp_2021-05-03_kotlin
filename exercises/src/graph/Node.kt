@@ -6,6 +6,7 @@
 
 package graph
 
+import graph.Link.Companion.FEWEST_HOPS
 import graph.Link.Companion.LEAST_COST
 
 // Understands its neighbors
@@ -17,7 +18,7 @@ class Node {
 
     infix fun canReach(destination: Node) = this.hopCount(destination, noVisitedNodes) != UNREACHABLE
 
-    infix fun hopCount(destination: Node) = this.hopCount(destination, noVisitedNodes).also {
+    infix fun hopCount(destination: Node) = this.cost(destination, noVisitedNodes, FEWEST_HOPS).also {
         require (it != UNREACHABLE) { "Destination is not reachable" }
     }.toInt()
 
