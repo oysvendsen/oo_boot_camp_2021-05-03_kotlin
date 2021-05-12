@@ -32,7 +32,7 @@ class Node {
 
     infix fun cost(destination: Node) = this.cost(destination, noVisitedNodes).also {
         require (it != UNREACHABLE) { "Destination is not reachable" }
-    }.toInt()
+    }
 
     internal fun cost(destination: Node, visitedNodes: List<Node>): Double {
         if (this == destination) return 0.0
@@ -50,8 +50,6 @@ class Node {
     infix fun cost(amount: Number) = LinkBuilder(amount.toDouble(), links)
 
     class LinkBuilder internal constructor(private val cost: Double, private val links: MutableList<Link>) {
-        infix fun to(neighbor: Node) = neighbor.also {
-            links.add(Link(neighbor, cost))
-        }
+        infix fun to(neighbor: Node) = neighbor.also { links.add(Link(neighbor, cost)) }
     }
 }
